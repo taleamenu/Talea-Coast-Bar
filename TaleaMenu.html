@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<link rel="icon" type="image/jpeg" href="icon.jpeg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talea Coast Menu</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #e9e1d2;
+  color: #2e2923;
+}
+
+.language-switcher {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 9999;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.language-switcher button {
+  border: none;
+  background: #ffffff;
+  color: #3d3730;
+  padding: 9px 13px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transition: 0.25s;
+}
+
+.language-switcher button:hover {
+  background: #4b8f91;
+  color: white;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: #ffffff;
+  padding: 30px 22px;
+  border-right: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 10px 0 35px rgba(0,0,0,0.06);
+}
+
+.sidebar img {
+  width: 100%;
+  border-radius: 22px;
+  margin-bottom: 25px;
+}
+
+.sidebar h1 {
+  font-size: 25px;
+  letter-spacing: 4px;
+  text-align: center;
+  color: #3d3730;
+}
+
+.sidebar p {
+  text-align: center;
+  color: #4b8f91;
+  font-style: italic;
+  margin: 8px 0 25px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #3d3730;
+  background: #f4efe6;
+  padding: 13px 16px;
+  border-radius: 16px;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.nav a:hover {
+  background: #4b8f91;
+  color: white;
+  transform: translateX(5px);
+}
+
+.content {
+  padding: 45px;
+  background:
+    radial-gradient(circle at top right, rgba(75,143,145,0.25), transparent 35%),
+    radial-gradient(circle at bottom left, rgba(214,179,106,0.3), transparent 35%),
+    #e9e1d2;
+}
+
+.hero {
+  margin-bottom: 40px;
+  padding: 45px;
+  border-radius: 34px;
+  background: #4B8F91;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: rgba(75,143,145,0.5);
+  right: -80px;
+  top: -80px;
+}
+
+.hero h2 {
+  font-size: clamp(42px, 7vw, 78px);
+  line-height: 0.95;
+  color: #F5E6C8;
+}
+
+.hero p {
+  margin-top: 18px;
+  max-width: 540px;
+  line-height: 1.7;
+  color: #f4efe6;
+}
+
+.menu-section {
+  margin-bottom: 35px;
+  background: rgba(255,255,255,0.75);
+  border-radius: 30px;
+  padding: 28px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+  scroll-margin-top: 30px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  padding-bottom: 14px;
+}
+
+.section-head h2 {
+  font-size: 32px;
+  color: #2e2923;
+}
+
+.tag {
+  background: #4b8f91;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.group-title {
+  color: #4b8f91;
+  font-size: 21px;
+  margin: 25px 0 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.product {
+  background: #f8f4ed;
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  transition: 0.25s;
+}
+
+.product:hover {
+  background: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+}
+
+.product-name {
+  font-weight: 600;
+}
+
+.price {
+  color: #4b8f91;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.footer {
+  background: #4B8F91;
+  color: #f0d28b;
+  border-radius: 28px;
+  padding: 28px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.footer span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer img {
+  height: 22px;
+}
+
+@media(max-width: 850px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: relative;
+    height: auto;
+  }
+
+  .sidebar img {
+    max-width: 260px;
+    display: block;
+    margin: 0 auto 20px;
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .hero {
+    padding: 32px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .language-switcher {
+    position: static;
+    justify-content: center;
+    background: #e9e1d2;
+    padding: 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="language-switcher">
+  <button onclick="setLanguage('sq')">🇦🇱 Shqip</button>
+  <button onclick="setLanguage('en')">🇬🇧 English</button>
+  <button onclick="setLanguage('it')">🇮🇹 Italiano</button>
+</div>
+
+<div class="wrapper">
+
+  <aside class="sidebar">
+    <img src="icon.jpeg" alt="Talea Coast Logo">
+    <h1>TALEA COAST</h1>
+    <p data-sq="në gji të natyrës" data-en="in the heart of nature" data-it="nel cuore della natura">në gji të natyrës</p>
+
+    <nav class="nav">
+      <a href="#kafeteria" data-sq="Kafeteria" data-en="Coffee" data-it="Caffetteria">Kafeteria</a>
+      <a href="#freskuese" data-sq="Freskuese" data-en="Soft Drinks" data-it="Bibite">Freskuese</a>
+      <a href="#lengje-frutash" data-sq="Lëngje Frutash" data-en="Fruit Juices" data-it="Succhi di Frutta">Lëngje Frutash</a>
+      <a href="#smoothie" data-sq="Smoothie" data-en="Smoothies" data-it="Frullati">Smoothie</a>
+      <a href="#alkolike" data-sq="Alkolike" data-en="Alcohol" data-it="Alcolici">Alkolike</a>
+      <a href="#birra" data-sq="Birra" data-en="Beer" data-it="Birra">Birra</a>
+      <a href="#cocktails" data-sq="Cocktails" data-en="Cocktails" data-it="Cocktail">Cocktails</a>
+      <a href="#vere" data-sq="Verë" data-en="Wine" data-it="Vino">Verë</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+
+    <section class="hero">
+      <h2 data-sq="Beach Bar<br>Menu" data-en="Beach Bar<br>Menu" data-it="Menu<br>Beach Bar">Beach Bar<br>Menu</h2>
+      <p data-sq="Fresh drinks, cocktails, coffee, beer and premium spirits — served with the Talea Coast atmosphere." data-en="Fresh drinks, cocktails, coffee, beer and premium spirits — served with the Talea Coast atmosphere." data-it="Bevande fresche, cocktail, caffè, birra e distillati premium — serviti con l’atmosfera Talea Coast.">Fresh drinks, cocktails, coffee, beer and premium spirits — served with the Talea Coast atmosphere.</p>
+    </section>
+
+    <section class="menu-section" id="kafeteria">
+      <div class="section-head">
+        <h2 data-sq="Kafeteria" data-en="Coffee" data-it="Caffetteria">Kafeteria</h2>
+        <span class="tag" data-sq="Kafeteria" data-en="Coffee" data-it="Caffetteria">Kafeteria</span>
+      </div>
+      <div class="grid">
+        <div class="product"><span class="product-name" data-sq="Kafe" data-en="Coffee" data-it="Caffè">Kafe</span><span class="price">110 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Çaj Kraco Infusion" data-en="Kraco Infusion Tea" data-it="Tè Kraco Infusion">Çaj Kraco Infusion</span><span class="price">100 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Çaj Kraco Bio" data-en="Kraco Bio Tea" data-it="Tè Kraco Bio">Çaj Kraco Bio</span><span class="price">170 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Makiato" data-en="Macchiato" data-it="Macchiato">Makiato</span><span class="price">120 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Kakao" data-en="Cocoa" data-it="Cacao">Kakao</span><span class="price">180 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Çokollatë" data-en="Hot Chocolate" data-it="Cioccolata Calda">Çokollatë</span><span class="price">180 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Kapucino" data-en="Cappuccino" data-it="Cappuccino">Kapucino</span><span class="price">180 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Kafe Amerikane" data-en="American Coffee" data-it="Caffè Americano">Kafe Amerikane</span><span class="price">110 Lekë</span></div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="freskuese">
+      <div class="section-head">
+        <h2 data-sq="Freskuese" data-en="Soft Drinks" data-it="Bibite">Freskuese</h2>
+        <span class="tag" data-sq="Freskuese" data-en="Soft Drinks" data-it="Bibite">Freskuese</span>
+      </div>
+      <div class="grid">
+        <div class="product"><span class="product-name">Red Bull</span><span class="price">400 Lekë</span></div>
+        <div class="product"><span class="product-name">Coca-Cola</span><span class="price">200 Lekë</span></div>
+        <div class="product"><span class="product-name">Coca-Cola Zero</span><span class="price">200 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Ujë Natyral" data-en="Still Water" data-it="Acqua Naturale">Ujë Natyral</span><span class="price">120 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Ujë me Gaz" data-en="Sparkling Water" data-it="Acqua Frizzante">Ujë me Gaz</span><span class="price">120 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Ujë Tonik" data-en="Tonic Water" data-it="Acqua Tonica">Ujë Tonik</span><span class="price">200 Lekë</span></div>
+        <div class="product"><span class="product-name">Rosé Lemonade</span><span class="price">400 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Kapucino Fredo" data-en="Iced Cappuccino" data-it="Cappuccino Freddo">Kapucino Fredo</span><span class="price">250 Lekë</span></div>
+        <div class="product"><span class="product-name">B 52</span><span class="price">200 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Çokollatë Fredo" data-en="Iced Chocolate" data-it="Cioccolata Fredda">Çokollatë Fredo</span><span class="price">250 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Frape" data-en="Frappé" data-it="Frappè">Frape</span><span class="price">250 Lekë</span></div>
+        <div class="product"><span class="product-name">Orange Soda</span><span class="price">200 Lekë</span></div>
+        <div class="product"><span class="product-name">Lemon Soda</span><span class="price">200 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Çaj i Ftohtë" data-en="Iced Tea" data-it="Tè Freddo">Çaj i Ftohtë</span><span class="price">200 Lekë</span></div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="lengje-frutash">
+      <div class="section-head">
+        <h2 data-sq="Lëngje Frutash" data-en="Fruit Juices" data-it="Succhi di Frutta">Lëngje Frutash</h2>
+        <span class="tag" data-sq="Lëngje Frutash" data-en="Fruit Juices" data-it="Succhi di Frutta">Lëngje Frutash</span>
+      </div>
+      <div class="grid">
+        <div class="product"><span class="product-name" data-sq="Lëng Portokalli" data-en="Orange Juice" data-it="Succo d’Arancia">Lëng Portokalli</span><span class="price">250 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Lëng Molle" data-en="Apple Juice" data-it="Succo di Mela">Lëng Molle</span><span class="price">250 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Lëng Pjeshke" data-en="Peach Juice" data-it="Succo di Pesca">Lëng Pjeshke</span><span class="price">250 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Lëng Fruta Pylli" data-en="Forest Fruit Juice" data-it="Succo ai Frutti di Bosco">Lëng Fruta Pylli</span><span class="price">250 Lekë</span></div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="smoothie">
+      <div class="section-head">
+        <h2 data-sq="Smoothie" data-en="Smoothies" data-it="Frullati">Smoothie</h2>
+        <span class="tag" data-sq="Smoothie" data-en="Smoothies" data-it="Frullati">Smoothie</span>
+      </div>
+      <div class="grid">
+        <div class="product"><span class="product-name" data-sq="Smoothie Banane" data-en="Banana Smoothie" data-it="Frullato alla Banana">Smoothie Banane</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Smoothie Molle" data-en="Apple Smoothie" data-it="Frullato alla Mela">Smoothie Molle</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Smoothie Luleshtrydhe" data-en="Strawberry Smoothie" data-it="Frullato alla Fragola">Smoothie Luleshtrydhe</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Smoothie Ananas" data-en="Pineapple Smoothie" data-it="Frullato all’Ananas">Smoothie Ananas</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Smoothie Kakao" data-en="Cocoa Smoothie" data-it="Frullato al Cacao">Smoothie Kakao</span><span class="price">350 Lekë</span></div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="alkolike">
+      <div class="section-head">
+        <h2 data-sq="Alkolike" data-en="Alcohol" data-it="Alcolici">Alkolike</h2>
+        <span class="tag" data-sq="Premium" data-en="Premium" data-it="Premium">Premium</span>
+      </div>
+
+      <h3 class="group-title">Vodka</h3>
+      <div class="grid">
+        <div class="product"><span class="product-name">Absolut</span><span class="price">400 Lekë</span></div>
+        <div class="product"><span class="product-name">Smirnof Ice</span><span class="price">400 Lekë</span></div>
+        <div class="product"><span class="product-name">Belvedere</span><span class="price">800 Lekë</span></div>
+        <div class="product"><span class="product-name">Smirnof</span><span class="price">300 Lekë</span></div>
+      </div>
+
+      <h3 class="group-title">Gin</h3>
+      <div class="grid">
+        <div class="product"><span class="product-name">Tanqueray</span><span class="price">400 Lekë</span></div>
+        <div class="product"><span class="product-name">Hendrick’s</span><span class="price">700 Lekë</span></div>
+        <div class="product"><span class="product-name">GunPowder</span><span class="price">700 Lekë</span></div>
+        <div class="product"><span class="product-name">Bombay Sapphire</span><span class="price">500 Lekë</span></div>
+        <div class="product"><span class="product-name">Gordons</span><span class="price">300 Lekë</span></div>
+      </div>
+
+      <h3 class="group-title">Whiskey</h3>
+      <div class="grid">
+        <div class="product"><span class="product-name">Jack Daniel’s</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name">Johnnie Walker Red Label</span><span class="price">300 Lekë</span></div>
+        <div class="product"><span class="product-name">Johnnie Walker Black Label</span><span class="price">500 Lekë</span></div>
+        <div class="product"><span class="product-name">Johnnie Walker Blue Label</span><span class="price">2000 Lekë</span></div>
+        <div class="product"><span class="product-name">Johnnie Walker Green Label</span><span class="price">800 Lekë</span></div>
+        <div class="product"><span class="product-name">Chivas</span><span class="price">450 Lekë</span></div>
+        <div class="product"><span class="product-name">Ballantines</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name">J & B</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name">Tullamore</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name">Monkey Shoulder</span><span class="price">450 Lekë</span></div>
+      </div>
+
+      <h3 class="group-title">Amaro</h3>
+      <div class="grid">
+        <div class="product"><span class="product-name">Jägermeister</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name">Montenegro</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name">Lugano</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name">Disaronno</span><span class="price">350 Lekë</span></div>
+      </div>
+
+      <h3 class="group-title">Tequila</h3>
+      <div class="grid">
+        <div class="product"><span class="product-name">Sierra</span><span class="price">350 Lekë</span></div>
+        
+      </div>
+    </section>
+
+    <section class="menu-section" id="birra">
+      <div class="section-head">
+        <h2 data-sq="Birra" data-en="Beer" data-it="Birra">Birra</h2>
+        <span class="tag" data-sq="Birra" data-en="Beer" data-it="Birra">Birra</span>
+      </div>
+      <div class="grid">
+        <div class="product"><span class="product-name">Heineken</span><span class="price">400 Lekë</span></div>
+        <div class="product"><span class="product-name">Bitburger Zero Alcohol</span><span class="price">300 Lekë</span></div>
+        <div class="product"><span class="product-name">Bitburger 0.33</span><span class="price">300 Lekë</span></div>
+        <div class="product"><span class="product-name">Benediktiner Hell</span><span class="price">450 Lekë</span></div>
+        <div class="product"><span class="product-name">Kriko Benediktiner</span><span class="price">350 Lekë</span></div>
+        <div class="product"><span class="product-name">Peja 0.33</span><span class="price">300 Lekë</span></div>
+        <div class="product"><span class="product-name">Benediktiner Wheat</span><span class="price">500 Lekë</span></div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="cocktails">
+      <div class="section-head">
+        <h2 data-sq="Cocktails" data-en="Cocktails" data-it="Cocktail">Cocktails</h2>
+        <span class="tag" data-sq="Cocktails" data-en="Cocktails" data-it="Cocktail">Cocktails</span>
+      </div>
+      <div class="grid">
+        <div class="product"><span class="product-name">Sex on the Beach</span><span class="price">700 Lekë</span></div>
+        <div class="product"><span class="product-name">Mojito</span><span class="price">700 Lekë</span></div>
+        <div class="product"><span class="product-name">Vodka Sour</span><span class="price">700 Lekë</span></div>
+        <div class="product"><span class="product-name">Caipiroska</span><span class="price">800 Lekë</span></div>
+        <div class="product"><span class="product-name">Negroni</span><span class="price">800 Lekë</span></div>
+        <div class="product"><span class="product-name">Aperol Spritz</span><span class="price">500 Lekë</span></div>
+        <div class="product"><span class="product-name">Campari Spritz</span><span class="price">500 Lekë</span></div>
+        <div class="product"><span class="product-name">Long Island</span><span class="price">800 Lekë</span></div>
+        <div class="product"><span class="product-name">AMF</span><span class="price">800 Lekë</span></div>
+        <div class="product"><span class="product-name">Hugo Spritz</span><span class="price">500 Lekë</span></div>
+        <div class="product"><span class="product-name">Margarita</span><span class="price">700 Lekë</span></div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="vere">
+      <div class="section-head">
+        <h2 data-sq="Verë" data-en="Wine" data-it="Vino">Verë</h2>
+        <span class="tag" data-sq="Wine" data-en="Wine" data-it="Vino">Wine</span>
+      </div>
+
+      <h3 class="group-title" data-sq="Verë e Kuqe" data-en="Red Wine" data-it="Vino Rosso">Verë e Kuqe</h3>
+      <div class="grid">
+        <div class="product"><span class="product-name">Pink Flamingo Bio Rosso</span><span class="price">4000 Lekë</span></div>
+        <div class="product"><span class="product-name">Primitivo di Puglia</span><span class="price">2000 Lekë</span></div>
+        <div class="product"><span class="product-name">Chianti Cecchi DOCG</span><span class="price">2300 Lekë</span></div>
+        <div class="product"><span class="product-name">Amarone della Valpolicella</span><span class="price">8000 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Verë e hapur 5LT" data-en="Open Wine 5L" data-it="Vino Sfuso 5L">Verë e hapur 5LT</span><span class="price">350 Lekë</span></div>
+      </div>
+
+      <h3 class="group-title" data-sq="Verë e Bardhë" data-en="White Wine" data-it="Vino Bianco">Verë e Bardhë</h3>
+      <div class="grid">
+        <div class="product"><span class="product-name">Prosecco Montelliano</span><span class="price">2500 Lekë</span></div>
+        <div class="product"><span class="product-name">Jarras Chardonnay</span><span class="price">4000 Lekë</span></div>
+        <div class="product"><span class="product-name">Pinot Grigio delle Venezie</span><span class="price">2500 Lekë</span></div>
+        <div class="product"><span class="product-name">Greco di Tufo</span><span class="price">2500 Lekë</span></div>
+        <div class="product"><span class="product-name" data-sq="Verë e hapur 5LT" data-en="Open Wine 5L" data-it="Vino Sfuso 5L">Verë e hapur 5LT</span><span class="price">350 Lekë</span></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>example@gmail.com</span>
+      <span>+355672013019 || +355695381846</span>
+      <span><img src="logoo.png" alt=""> @taleacoast</span>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('[data-' + lang + ']').forEach(function(element) {
+    element.innerHTML = element.getAttribute('data-' + lang);
+  });
+}
+</script>
+
+</body>
+</html>
